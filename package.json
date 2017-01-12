@@ -1,0 +1,24 @@
+{
+  "name": "stock-printer-proxy",
+  "version": "1.0.0",
+  "description": "A public server to proxy requests to printers on the intranet",
+  "main": "src/server.js",
+  "repository": "git@github.com:cheminfo/stock-printer-proxy.git",
+  "author": "Daniel Kostro <kostro.d@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "http-proxy-middleware": "^0.17.3",
+    "js-yaml": "^3.7.0",
+    "minimist": "^1.2.0",
+    "rest-on-couch-client": "^0.0.2"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "start-dev": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
