@@ -1165,11 +1165,11 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-qs@6.2.0, qs@^6.1.0:
+qs@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
 
-qs@~6.3.0:
+qs@^6.1.0, qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
@@ -1289,9 +1289,9 @@ requires-port@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
-rest-on-couch-client@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/rest-on-couch-client/-/rest-on-couch-client-0.0.2.tgz#b6584d9390df25e6fd95cd00deb82e1323605184"
+rest-on-couch-client@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/rest-on-couch-client/-/rest-on-couch-client-0.0.3.tgz#55b43d8daa2a23b4d0f4129e93032478844f3442"
   dependencies:
     superagent "^3.3.1"
     urijs "^1.18.4"

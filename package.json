@@ -12,7 +12,7 @@
     "http-proxy-middleware": "^0.17.3",
     "js-yaml": "^3.7.0",
     "minimist": "^1.2.0",
-    "rest-on-couch-client": "^0.0.2"
+    "rest-on-couch-client": "^0.0.3"
   },
   "scripts": {
     "start": "node src/server.js",
