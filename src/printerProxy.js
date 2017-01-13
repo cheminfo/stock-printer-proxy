@@ -6,7 +6,7 @@ const config = require('./config/config');
 
 const proxies = {};
 
-console.log(config['rest-on-couch'])
+console.log(config['rest-on-couch']);
 const roc = new Roc(config['rest-on-couch']);
 module.exports = function() {
     return function(req, res) {
@@ -14,7 +14,6 @@ module.exports = function() {
         if(!mac) {
             res.status(400).send('Please provide a printer id');
         } else {
-            console.log('search server by mac', mac);
             roc.view('printServerByMacAddress', {
                 key: mac
             }).then(data => {
@@ -27,8 +26,8 @@ module.exports = function() {
                            target: content.url,
                            changeOrigin: true
                        });
-                       proxies[content.url](req, res);
                    }
+                    proxies[content.url](req, res);
                 }
             }).catch(err => {
                 res.status(500).send('Internal server error');
