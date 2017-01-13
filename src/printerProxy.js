@@ -14,6 +14,7 @@ module.exports = function() {
         if(!mac) {
             res.status(400).send('Please provide a printer id');
         } else {
+            console.log('search server by mac', mac);
             roc.view('printServerByMacAddress', {
                 key: mac
             }).then(data => {
