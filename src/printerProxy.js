@@ -24,7 +24,8 @@ module.exports = function() {
                    if(!proxies[content.url]) {
                        proxies[content.url] = proxy({
                            target: content.url,
-                           changeOrigin: true
+                           changeOrigin: true,
+                           timeout: 1500
                        });
                    }
                     proxies[content.url](req, res);
