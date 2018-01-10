@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "stock-printer-proxy",
   "version": "1.0.0",
   "description": "A public server to proxy requests to printers on the intranet",
