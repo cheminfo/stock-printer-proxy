@@ -79,13 +79,11 @@ function updatePrinterServer(printer, printerCheck) {
           $owners: ['printerAdmin']
         });
       } else {
-        return roc
-          .update(Object.assign(data[0], { $content: content }))
-          .then(() => debug('entry added to couchdb'));
+        return roc.update(Object.assign(data[0], { $content: content }));
       }
     })
     .catch(err => {
-      debug('Error logging printServer to couchdb', err);
+      console.error('Error logging printServer to couchdb', err);
     });
 }
 
