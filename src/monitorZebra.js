@@ -49,6 +49,7 @@ async function checkPrinter(printer) {
     }
     return result;
   } catch (e) {
+    //test
     console.error(e);
     return result;
   }
