@@ -30,7 +30,6 @@ async function updateStatus() {
     const printerCheck = await checkPrinter(data);
     await updatePrinterServer(data, printerCheck);
   }
-  console.log(printers);
 }
 
 async function checkPrinter(printer) {
@@ -70,7 +69,8 @@ function updatePrinterServer(printer, printerCheck) {
         port: 80,
         protocol: 'http',
         url: `http://${printer.ip}`,
-        isOnline: printerCheck.isOnline
+        isOnline: printerCheck.isOnline,
+        type: 'zebra'
       };
       if (!data.length) {
         return roc.create({
