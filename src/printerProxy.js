@@ -1,7 +1,10 @@
 'use strict';
 
+const superagent = require('superagent');
 const proxy = require('http-proxy-middleware');
 const Roc = require('rest-on-couch-client');
+const bodyParser = require('body-parser');
+
 const config = require('./config/config');
 
 const proxies = {};
@@ -22,14 +25,23 @@ module.exports = function() {
             res.status(404).send('mac address not found');
           } else {
             const content = data[0].$content;
-            if (!proxies[content.url]) {
-              proxies[content.url] = proxy({
-                target: content.url,
-                changeOrigin: true,
-                proxyTimeout: 2500
+            // Unfortunately, I was not able to make the proxy work. So I manually send the correct request here...
+            if (req.path === '/pstprnt') {
+              bodyParser.text()(req, res, function() {
+                const url = content.url + req.path;
+                superagent.post(url).send(req.body);
+                res.json({ ok: true });
               });
+            } else {
+              if (!proxies[content.url]) {
+                proxies[content.url] = proxy({
+                  target: content.url,
+                  changeOrigin: true,
+                  proxyTimeout: 2500
+                });
+              }
+              proxies[content.url](req, res);
             }
-            proxies[content.url](req, res);
           }
         })
         .catch(err => {

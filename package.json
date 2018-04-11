@@ -8,12 +8,14 @@
   "author": "Daniel Kostro <kostro.d@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "http-proxy-middleware": "^0.17.3",
     "js-yaml": "^3.7.0",
     "minimist": "^1.2.0",
-    "rest-on-couch-client": "^0.0.6"
+    "rest-on-couch-client": "^0.0.6",
+    "superagent": "^3.8.2"
   },
   "scripts": {
     "start": "node src/server.js",

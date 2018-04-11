@@ -12,17 +12,15 @@ const interval = 60000 * 5; // Every 5 minute
 
 async function start() {
   await updateStatus();
-  setTimeout(updateStatus, interval);
+  setTimeout(start, interval);
 }
 
 async function updateStatus() {
-  console.log('get printers');
   let printers = await roc.view('entryByKind', {
     key: 'printer'
   });
-  console.log(printers.length);
   printers = printers.filter(
-    printer => printer.$content.type === 'zebra' && printer.$content.ip
+    printer => printer.$content.kind === 'zebra' && printer.$content.ip
   );
 
   for (let printer of printers) {
@@ -70,7 +68,7 @@ function updatePrinterServer(printer, printerCheck) {
         protocol: 'http',
         url: `http://${printer.ip}`,
         isOnline: printerCheck.isOnline,
-        type: 'zebra'
+        kind: 'zebra'
       };
       if (!data.length) {
         return roc.create({
@@ -87,5 +85,6 @@ function updatePrinterServer(printer, printerCheck) {
     });
 }
 
-start();
-module.exports = start;
+module.exports = {
+  start
+};
