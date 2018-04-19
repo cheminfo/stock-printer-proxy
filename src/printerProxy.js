@@ -29,7 +29,7 @@ module.exports = function() {
             if (req.path === '/pstprnt') {
               bodyParser.text()(req, res, function() {
                 const url = content.url + req.path;
-                superagent.post(url).send(req.body);
+                superagent.post(url).send(req.body).end();
                 res.json({ ok: true });
               });
             } else {
