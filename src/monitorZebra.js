@@ -11,7 +11,11 @@ const roc = new Roc(config['rest-on-couch']);
 const interval = 60000 * 5; // Every 5 minute
 
 async function start() {
-  await updateStatus();
+  try {
+    await updateStatus();
+  } catch(e) {
+    console.log('Error while updating zebra printer status', e);
+  }
   setTimeout(start, interval);
 }
 
