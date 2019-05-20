@@ -53,6 +53,7 @@ async function checkPrinter(printer) {
     }
     return result;
   } catch (e) {
+    console.error('Error while checking printer', new Date());
     console.error(e);
     return result;
   }
