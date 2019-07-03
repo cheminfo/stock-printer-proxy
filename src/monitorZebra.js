@@ -3,8 +3,12 @@
 const Roc = require('rest-on-couch-client');
 const superagent = require('superagent');
 
+const util = require('./util');
 const config = require('./config/config');
-console.log(config);
+console.log({
+  ...config,
+  password: '***'
+});
 
 const roc = new Roc(config['rest-on-couch']);
 
@@ -26,7 +30,7 @@ async function updateStatus() {
     key: 'printer'
   });
   printers = printers.filter(
-    printer => printer.$content.kind === 'zebra' && printer.$content.ip
+    (printer) => printer.$content.kind === 'zebra' && printer.$content.ip
   );
 
   for (let printer of printers) {
@@ -43,14 +47,11 @@ async function checkPrinter(printer) {
   try {
     const res = await superagent.get(`http://${printer.ip}`);
     if (res.status !== 200) return false;
-    if (res.text.indexOf('>READY<') > -1 || res.text.indexOf('>BEREIT<') > -1) {
-      result.isOnline = true;
-    }
-    var reg = /<h2>([^<]+)</i;
-    const m = reg.exec(res.text);
-    if (m && m[1]) {
-      result.serialNumber = m[1];
-    }
+
+    const parsed = util.parsePrinterResponse(res.text);
+    result.isOnline = parsed.isOnline;
+    result.serialNumber = parsed.serialNumber;
+
     return result;
   } catch (e) {
     console.error('Error while checking printer', new Date());
@@ -64,7 +65,7 @@ function updatePrinterServer(printer, printerCheck) {
     .view('printServerByMacAddress', {
       key: printer.macAddress
     })
-    .then(data => {
+    .then((data) => {
       const content = {
         macAddress: printerCheck.isOnline
           ? printerCheck.serialNumber
@@ -87,7 +88,7 @@ function updatePrinterServer(printer, printerCheck) {
         return roc.update(Object.assign(data[0], { $content: content }));
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('Error logging printServer to couchdb', err);
     });
 }
