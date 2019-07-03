@@ -43,7 +43,7 @@ async function checkPrinter(printer) {
   try {
     const res = await superagent.get(`http://${printer.ip}`);
     if (res.status !== 200) return false;
-    if (res.text.indexOf('>READY<') > -1) {
+    if (res.text.indexOf('>READY<') > -1 || res.text.indexOf('>BEREIT<') > -1) {
       result.isOnline = true;
     }
     var reg = /<h2>([^<]+)</i;
