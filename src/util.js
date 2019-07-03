@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  parsePrinterResult: function(text) {
+  parsePrinterResponse: function(text) {
     const result = {
       isOnline: false
     };

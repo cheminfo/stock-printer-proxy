@@ -99,7 +99,7 @@ Support: <A HREF="https://www.zebra.com/support.html">https://www.zebra.com/supp
 `;
 
 test('parse printer result (german)', () => {
-  const parsed = util.parsePrinterResult(german);
+  const parsed = util.parsePrinterResponse(german);
   expect(parsed).toMatchObject({
     isOnline: true,
     serialNumber: 'vad-zebra1-la'
@@ -107,7 +107,7 @@ test('parse printer result (german)', () => {
 });
 
 test('parse printer result (english)', () => {
-  const parsed = util.parsePrinterResult(english);
+  const parsed = util.parsePrinterResponse(english);
   expect(parsed).toMatchObject({
     isOnline: true,
     serialNumber: 'ACI-PRT10'
@@ -115,7 +115,7 @@ test('parse printer result (english)', () => {
 });
 
 test('parse printer result not ready', () => {
-  const parsed = util.parsePrinterResult(englishError);
+  const parsed = util.parsePrinterResponse(englishError);
   expect(parsed).toMatchObject({
     isOnline: false,
     serialNumber: 'ACI-PRT10'
