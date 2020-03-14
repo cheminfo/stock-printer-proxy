@@ -13,7 +13,7 @@
     "express": "^4.14.0",
     "http-proxy-middleware": "^0.17.3",
     "js-yaml": "^3.7.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "rest-on-couch-client": "^0.0.6",
     "superagent": "^3.8.2"
   },
