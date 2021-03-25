@@ -7,7 +7,7 @@ const util = require('./util');
 const config = require('./config/config');
 console.log({
   ...config,
-  password: '***'
+  password: '***',
 });
 
 const roc = new Roc(config['rest-on-couch']);
@@ -27,10 +27,10 @@ async function start() {
 
 async function updateStatus() {
   let printers = await roc.view('entryByKind', {
-    key: 'printer'
+    key: 'printer',
   });
   printers = printers.filter(
-    (printer) => printer.$content.kind === 'zebra' && printer.$content.ip
+    (printer) => printer.$content.kind === 'zebra' && printer.$content.ip,
   );
 
   for (let printer of printers) {
@@ -42,7 +42,7 @@ async function updateStatus() {
 
 async function checkPrinter(printer) {
   const result = {
-    isOnline: false
+    isOnline: false,
   };
   try {
     const res = await superagent.get(`http://${printer.ip}`);
@@ -61,9 +61,9 @@ async function checkPrinter(printer) {
 }
 
 function updatePrinterServer(printer, printerCheck) {
-  roc
+  return roc
     .view('printServerByMacAddress', {
-      key: printer.macAddress
+      key: printer.macAddress,
     })
     .then((data) => {
       const content = {
@@ -76,13 +76,13 @@ function updatePrinterServer(printer, printerCheck) {
         protocol: 'http',
         url: `http://${printer.ip}`,
         isOnline: printerCheck.isOnline,
-        kind: 'zebra'
+        kind: 'zebra',
       };
       if (!data.length) {
         return roc.create({
           $kind: 'printServer',
           $content: content,
-          $owners: ['printerAdmin']
+          $owners: ['printerAdmin'],
         });
       } else {
         return roc.update(Object.assign(data[0], { $content: content }));
@@ -94,5 +94,5 @@ function updatePrinterServer(printer, printerCheck) {
 }
 
 module.exports = {
-  start
+  start,
 };
