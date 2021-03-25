@@ -8,14 +8,14 @@ const def = require('./default');
 
 var configFile = getPath('config.yml');
 
-if(argv.config) {
-    configFile = getPath(argv.config);
+if (argv.config) {
+  configFile = getPath(argv.config);
 }
 
 function getPath(p) {
-    return path.resolve(path.join(__dirname, '../..'), p);
+  return path.resolve(path.join(__dirname, '../..'), p);
 }
 
-const config = yaml.safeLoad(fs.readFileSync(configFile));
+const config = yaml.load(fs.readFileSync(configFile));
 
 module.exports = Object.assign({}, def, config);
