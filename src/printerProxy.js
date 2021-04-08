@@ -29,7 +29,14 @@ module.exports = function () {
             if (req.path === '/pstprnt') {
               bodyParser.text()(req, res, function () {
                 const url = content.url + req.path;
-                superagent.post(url).send(req.body).end();
+                superagent
+                  .post(url)
+                  .timeout({
+                    response: 10000,
+                    deadline: 30000,
+                  })
+                  .send(req.body)
+                  .end();
                 res.json({ ok: true });
               });
             } else {

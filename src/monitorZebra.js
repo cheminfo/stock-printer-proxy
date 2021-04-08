@@ -45,7 +45,10 @@ async function checkPrinter(printer) {
     isOnline: false,
   };
   try {
-    const res = await superagent.get(`http://${printer.ip}`);
+    const res = await superagent.get(`http://${printer.ip}`).timeout({
+      response: 10000,
+      deadline: 20000,
+    });
     if (res.status !== 200) return false;
 
     const parsed = util.parsePrinterResponse(res.text);
