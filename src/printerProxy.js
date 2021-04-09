@@ -1,5 +1,6 @@
 'use strict';
 
+const net = require('net');
 const superagent = require('superagent');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const Roc = require('rest-on-couch-client');
@@ -28,16 +29,31 @@ module.exports = function () {
             // Unfortunately, I was not able to make the proxy work. So I manually send the correct request here...
             if (req.path === '/pstprnt') {
               bodyParser.text()(req, res, function () {
-                const url = content.url + req.path;
-                superagent
-                  .post(url)
-                  .timeout({
-                    response: 10000,
-                    deadline: 30000,
-                  })
-                  .send(req.body)
-                  .end();
-                res.json({ ok: true });
+                if (config.protocol === 'tcp') {
+                  print(content.ip, req.body)
+                    .then(() => {
+                      res.json({ ok: true });
+                    })
+                    .catch(() => {
+                      res.json({ ok: false });
+                    });
+                } else {
+                  const url = content.url + req.path;
+                  superagent
+                    .post(url)
+                    .timeout({
+                      response: 10000,
+                      deadline: 30000,
+                    })
+                    .send(req.body)
+                    .set('Content-Length', req.body.length)
+                    .then(() => {
+                      res.json({ ok: true });
+                    })
+                    .catch(() => {
+                      res.json({ ok: false });
+                    });
+                }
               });
             } else {
               if (!proxies[content.url]) {
@@ -58,3 +74,12 @@ module.exports = function () {
     }
   };
 };
+
+function print(address, data) {
+  return new Promise((resolve, reject) => {
+    const socket = net.connect(9100, address.split(':')[0], () => {
+      socket.end(data, () => resolve(undefined));
+    });
+    socket.on('error', reject);
+  });
+}
