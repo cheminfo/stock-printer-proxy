@@ -1,11 +1,10 @@
 'use strict';
 
-const net = require('net');
-const superagent = require('superagent');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const Roc = require('rest-on-couch-client');
 const bodyParser = require('body-parser');
 
+const { printHttp, printTcp } = require('./print');
 const config = require('./config/config');
 
 const proxies = {};
@@ -30,7 +29,7 @@ module.exports = function () {
             if (req.path === '/pstprnt') {
               bodyParser.text()(req, res, function () {
                 if (config.protocol === 'tcp') {
-                  print(content.ip, req.body)
+                  printTcp(content.ip, req.body)
                     .then(() => {
                       res.json({ ok: true });
                     })
@@ -38,15 +37,7 @@ module.exports = function () {
                       res.json({ ok: false });
                     });
                 } else {
-                  const url = content.url + req.path;
-                  superagent
-                    .post(url)
-                    .timeout({
-                      response: 10000,
-                      deadline: 30000,
-                    })
-                    .send(req.body)
-                    .set('Content-Length', req.body.length)
+                  printHttp(content.url, req.body)
                     .then(() => {
                       res.json({ ok: true });
                     })
@@ -74,12 +65,3 @@ module.exports = function () {
     }
   };
 };
-
-function print(address, data) {
-  return new Promise((resolve, reject) => {
-    const socket = net.connect(9100, address.split(':')[0], () => {
-      socket.end(data, () => resolve(undefined));
-    });
-    socket.on('error', reject);
-  });
-}
