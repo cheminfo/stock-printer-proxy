@@ -1,6 +1,5 @@
 'use strict';
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
 const Roc = require('rest-on-couch-client');
 const bodyParser = require('body-parser');
 
@@ -47,14 +46,9 @@ module.exports = function () {
                 }
               });
             } else {
-              if (!proxies[content.url]) {
-                proxies[content.url] = createProxyMiddleware({
-                  target: content.url,
-                  changeOrigin: true,
-                  proxyTimeout: 2500,
-                });
-              }
-              proxies[content.url](req, res);
+              throw new Error(
+                'only /pstprnt route for Zebra printers is supported',
+              );
             }
           }
         })
