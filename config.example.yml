@@ -1,5 +1,0 @@
-rest-on-couch:
-  url: https://mydb.cheminfo.org/
-  database: printers
-  username: printer@cheminfo.org
-  password: printerpassword

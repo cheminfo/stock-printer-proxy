@@ -1,16 +1,9 @@
 'use strict';
 
-const Roc = require('rest-on-couch-client');
 const superagent = require('superagent');
 
+const roc = require('./roc');
 const util = require('./util');
-const config = require('./config/config');
-console.log({
-  ...config,
-  password: '***',
-});
-
-const roc = new Roc(config['rest-on-couch']);
 
 const interval = 60000 * 5; // Every 5 minute
 const failInterval = 60000; // Every 1 minute if it fails

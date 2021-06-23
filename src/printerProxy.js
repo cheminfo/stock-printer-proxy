@@ -1,14 +1,12 @@
 'use strict';
 
-const Roc = require('rest-on-couch-client');
 const bodyParser = require('body-parser');
 
+const roc = require('./roc');
 const { printHttp, printTcp } = require('./print');
-const config = require('./config/config');
 
-const proxies = {};
+const { protocol } = require('./constants');
 
-const roc = new Roc(config['rest-on-couch']);
 module.exports = function () {
   return function (req, res) {
     const mac = req.query.mac;
@@ -27,7 +25,7 @@ module.exports = function () {
             // Unfortunately, I was not able to make the proxy work. So I manually send the correct request here...
             if (req.path === '/pstprnt') {
               bodyParser.text()(req, res, function () {
-                if (config.protocol === 'tcp') {
+                if (protocol === 'tcp') {
                   printTcp(content.ip, req.body)
                     .then(() => {
                       res.json({ ok: true });
