@@ -7,4 +7,4 @@ ENV NODE_ENV production
 RUN npm ci
 
 
-CMD ["node", "src/server.js", "--config=config.yml"]
+CMD ["node", "src/server.js", "--config=/config.yml"]
