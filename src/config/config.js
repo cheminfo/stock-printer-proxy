@@ -16,6 +16,7 @@ function getPath(p) {
   return path.resolve(path.join(__dirname, '../..'), p);
 }
 
+console.log(`loading config from ${configFile}`);
 const config = yaml.load(fs.readFileSync(configFile));
 
 module.exports = Object.assign({}, def, config);
