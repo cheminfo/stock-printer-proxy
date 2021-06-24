@@ -12,7 +12,6 @@ function printTcp(address, data) {
   });
 }
 
-console.log('haha');
 function printHttp(url, data) {
   const printUrl = url + '/pstprnt';
   return superagent
