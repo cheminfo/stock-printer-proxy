@@ -13,10 +13,12 @@ module.exports = function () {
     if (!mac) {
       res.status(400).send('Please provide a printer id');
     } else {
-      roc
-        .view('printServerByMacAddress', {
-          key: mac,
-        })
+      const query = roc.getView('printServerByMacAddress', {
+        key: mac,
+      });
+
+      query
+        .fetch()
         .then((data) => {
           if (!data.length) {
             res.status(404).send('mac address not found');
