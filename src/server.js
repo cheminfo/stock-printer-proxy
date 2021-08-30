@@ -13,7 +13,7 @@ app.use(printerProxy());
 
 console.log({
   ...constants,
-  password: '***',
+  accessToken: '***',
 });
 
 app.listen(port, function () {

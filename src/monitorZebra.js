@@ -19,7 +19,7 @@ async function start() {
 }
 
 async function updateStatus() {
-  let printers = await roc.view('entryByKind', {
+  let printers = await roc.getView('entryByKind', {
     key: 'printer',
   });
   printers = printers.filter(
@@ -81,7 +81,8 @@ function updatePrinterServer(printer, printerCheck) {
           $owners: ['printerAdmin'],
         });
       } else {
-        return roc.update(Object.assign(data[0], { $content: content }));
+        const doc = roc.getDocument(data[0]._id);
+        return doc.update(Object.assign(data[0], content));
       }
     })
     .catch((err) => {

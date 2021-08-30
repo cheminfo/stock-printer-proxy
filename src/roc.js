@@ -2,13 +2,12 @@
 
 const Roc = require('rest-on-couch-client');
 
-const { url, database, username, password } = require('./constants');
+const { url, database, accessToken } = require('./constants');
 
 const roc = new Roc({
   url,
   database,
-  username,
-  password,
+  accessToken,
 });
 
 module.exports = roc;
