@@ -57,10 +57,11 @@ async function checkPrinter(printer) {
 }
 
 function updatePrinterServer(printer, printerCheck) {
-  return roc
-    .view('printServerByMacAddress', {
-      key: printer.macAddress,
-    })
+  const view = roc.getView('printServerByMacAddress', {
+    key: printer.macAddress,
+  });
+  view
+    .fetch()
     .then((data) => {
       const content = {
         macAddress: printerCheck.isOnline
