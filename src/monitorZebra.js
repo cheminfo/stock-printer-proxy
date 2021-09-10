@@ -82,7 +82,7 @@ function updatePrinterServer(printer, printerCheck) {
           $owners: ['printerAdmin'],
         });
       } else {
-        const doc = roc.getDocument(data[0]._id);
+        const doc = await roc.getDocument(data[0]._id).fetch();
         return doc.update(Object.assign(doc.$content, content));
       }
     })
