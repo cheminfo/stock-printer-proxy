@@ -83,9 +83,7 @@ function updatePrinterServer(printer, printerCheck) {
         });
       } else {
         const document = roc.getDocument(data[0]._id);
-        return document.fetch().then((doc) => {
-          return document.update(Object.assign(doc.$content, content));
-        });
+        return document.update(content);
       }
     })
     .catch((err) => {
