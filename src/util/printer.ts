@@ -58,7 +58,7 @@ export class Printer {
     // get formats compatible with printer
     let formats = this._formats.filter((format) => {
       return format.$content.models.some(
-        (model) => model.name === this._printer.$content.model,
+        (model) => model.name === this._printer.$content.model
       );
     });
 
