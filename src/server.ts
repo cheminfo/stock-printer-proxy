@@ -11,13 +11,13 @@ fastify.log.info({
 const start = async () => {
   try {
     await fastify.listen(constants.port);
-    console.log(`listening on port ${constants.port}`);
+    fastify.log.info(`listening on port ${constants.port}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
   }
 };
-start();
+void start();
 
 // Poll database for zebra printers
 // and check their availability
@@ -25,5 +25,5 @@ if (constants.disableMonitor) {
   fastify.log.info('zebra printer monitoring is disabled');
 } else {
   fastify.log.info('zebra printer monitoring is enabled');
-  startMonitoring();
+  void startMonitoring();
 }

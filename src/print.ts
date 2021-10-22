@@ -1,4 +1,5 @@
 import { connect } from 'net';
+
 import superagent from 'superagent';
 
 export function printTcp(address: string, data: any) {
@@ -11,7 +12,7 @@ export function printTcp(address: string, data: any) {
 }
 
 export function printHttp(url: string, data: any) {
-  const printUrl = url + '/pstprnt';
+  const printUrl = `${url }/pstprnt`;
   return superagent
     .post(printUrl)
     .timeout({

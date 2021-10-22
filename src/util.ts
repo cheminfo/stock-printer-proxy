@@ -8,13 +8,13 @@ export function parsePrinterResponse(text: string): PrinterParserResult {
     isOnline: false,
     serialNumber: null,
   };
-  if (text.indexOf('>READY<') > -1 || text.indexOf('>BEREIT<') > -1) {
+  if (text.includes('>READY<') || text.includes('>BEREIT<')) {
     result.isOnline = true;
   }
-  var reg = /<h2>([^<]+)</i;
+  let reg = /<h2>(?<id>[^<]+)</i;
   const m = reg.exec(text);
-  if (m && m[1]) {
-    result.serialNumber = m[1];
+  if (m?.groups?.id) {
+    result.serialNumber = m.groups.id;
   }
   return result;
 }

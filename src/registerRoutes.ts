@@ -1,9 +1,9 @@
-import roc from './roc/roc';
-import { printHttp, printTcp } from './print';
-import { pstprntSchema, printersSchema, PstprntQuery } from './schemas';
 import { FastifyInstance } from 'fastify';
 
 import constants from './constants';
+import { printHttp, printTcp } from './print';
+import roc from './roc/roc';
+import { pstprntSchema, printersSchema, PstprntQuery } from './schemas';
 
 export default function registerRoutes(fastify: FastifyInstance) {
   fastify.post<{
@@ -26,14 +26,14 @@ export default function registerRoutes(fastify: FastifyInstance) {
       try {
         if (constants.protocol === 'tcp') {
           await printTcp(content.ip, request.body);
-          reply.send({ ok: true });
+          await reply.send({ ok: true });
         } else {
           await printHttp(content.url, request.body);
         }
       } catch (e) {
         return reply.send({ ok: false });
       }
-      reply.send({ ok: true });
+      await reply.send({ ok: true });
     },
   );
 
