@@ -24,7 +24,7 @@
     "prettier-write": "prettier --write src",
     "start": "env-cmd node lib/server.js",
     "start-dev": "env-cmd nodemon --config nodemon.json src/server.ts",
-    "test": "jest"
+    "test-only": "jest"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
