@@ -1,9 +1,10 @@
 import superagent from 'superagent';
+
+import fastify from './fastify';
+import { getPrintServersByMacAddress } from './roc/printers';
 import roc from './roc/roc';
 import { parsePrinterResponse, PrinterParserResult } from './util';
 import { PrinterDocumentContent } from './util/printer';
-import fastify from './fastify';
-import { getPrintServersByMacAddress } from './roc/printers';
 
 const interval = 60000 * 5; // Every 5 minute
 const failInterval = 60000; // Every 1 minute if it fails
@@ -11,10 +12,14 @@ const failInterval = 60000; // Every 1 minute if it fails
 export async function startMonitoring() {
   try {
     await updateStatus();
-    setTimeout(startMonitoring, interval);
+    setTimeout(() => {
+      void startMonitoring();
+    }, interval);
   } catch (e) {
-    console.log('Error while updating zebra printer status', e);
-    setTimeout(startMonitoring, failInterval);
+    fastify.log.error(e, 'Error while updating zebra printer status');
+    setTimeout(() => {
+      void startMonitoring();
+    }, failInterval);
   }
 }
 
@@ -48,8 +53,7 @@ async function checkPrinter(
 
     return parsePrinterResponse(res.text);
   } catch (e) {
-    console.error('Error while checking printer', new Date());
-    console.error(e);
+    fastify.log.error(e, 'Error while checking printer');
     return result;
   }
 }
@@ -74,7 +78,7 @@ async function updatePrinterServer(
       kind: 'zebra',
     };
     if (!data.length) {
-      return roc.create({
+      return await roc.create({
         $id: null,
         $kind: 'printServer',
         $content: content,
@@ -82,9 +86,9 @@ async function updatePrinterServer(
       });
     } else {
       const document = roc.getDocument(data[0]._id);
-      return document.update(content);
+      return await document.update(content);
     }
   } catch (error) {
-    fastify.log.info('Error while updating print server to couchdb', { error });
+    fastify.log.error(error);
   }
 }
