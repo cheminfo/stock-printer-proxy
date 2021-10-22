@@ -1,7 +1,6 @@
 'use strict';
 
 const superagent = require('superagent');
-
 const roc = require('./roc');
 const util = require('./util');
 
