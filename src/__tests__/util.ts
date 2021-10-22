@@ -1,4 +1,4 @@
-import { parsePrinterResponse } from "../util";
+import { parsePrinterResponse } from '../util';
 
 const german = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
@@ -96,26 +96,26 @@ Support: <A HREF="https://www.zebra.com/support.html">https://www.zebra.com/supp
 </HTML>
 `;
 
-test("parse printer result (german)", () => {
-  const parsed = parsePrinterResponse(german);
-  expect(parsed).toMatchObject({
-    isOnline: true,
-    serialNumber: "vad-zebra1-la",
-  });
+test('parse printer result (german)', () => {
+    const parsed = parsePrinterResponse(german);
+    expect(parsed).toMatchObject({
+        isOnline: true,
+        serialNumber: 'vad-zebra1-la',
+    });
 });
 
-test("parse printer result (english)", () => {
-  const parsed = parsePrinterResponse(english);
-  expect(parsed).toMatchObject({
-    isOnline: true,
-    serialNumber: "ACI-PRT10",
-  });
+test('parse printer result (english)', () => {
+    const parsed = parsePrinterResponse(english);
+    expect(parsed).toMatchObject({
+        isOnline: true,
+        serialNumber: 'ACI-PRT10',
+    });
 });
 
-test("parse printer result not ready", () => {
-  const parsed = parsePrinterResponse(englishError);
-  expect(parsed).toMatchObject({
-    isOnline: false,
-    serialNumber: "ACI-PRT10",
-  });
+test('parse printer result not ready', () => {
+    const parsed = parsePrinterResponse(englishError);
+    expect(parsed).toMatchObject({
+        isOnline: false,
+        serialNumber: 'ACI-PRT10',
+    });
 });

@@ -9,11 +9,13 @@
   "license": "MIT",
   "dependencies": {
     "@sinclair/typebox": "^0.20.5",
+    "@types/twig": "^1.12.6",
     "body-parser": "^1.19.0",
     "fastify": "^3.22.1",
     "fastify-cors": "^6.0.2",
     "rest-on-couch-client": "^3.3.1",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "twig": "^1.15.4"
   },
   "scripts": {
     "build": "tsc",
