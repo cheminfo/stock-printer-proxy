@@ -8,7 +8,7 @@ export function parsePrinterResponse(text: string): PrinterParserResult {
     isOnline: false,
     serialNumber: null,
   };
-  if (text.includes('>READY<') || text.includes('>BEREIT<')) {
+  if (text.includes(">READY<") || text.includes(">BEREIT<")) {
     result.isOnline = true;
   }
   let reg = /<h2>(?<id>[^<]+)</i;

@@ -1,30 +1,30 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance } from "fastify";
 
-import constants from './constants';
-import { printHttp, printTcp } from './print';
-import roc from './roc/roc';
-import { pstprntSchema, printersSchema, PstprntQuery } from './schemas';
+import constants from "./constants";
+import { printHttp, printTcp } from "./print";
+import roc from "./roc/roc";
+import { pstprntSchema, printersSchema, PstprntQuery } from "./schemas";
 
 export default function registerRoutes(fastify: FastifyInstance) {
   fastify.post<{
     Querystring: PstprntQuery;
     Body: string;
   }>(
-    '/pstprnt',
+    "/pstprnt",
     {
       schema: pstprntSchema,
     },
     async (request, reply) => {
       const mac = request.query.mac;
-      const data = await roc.getView('printServerByMacAddress', {
+      const data = await roc.getView("printServerByMacAddress", {
         key: mac,
       });
       if (!data.length) {
-        return reply.code(404).send('mac address not found');
+        return reply.code(404).send("mac address not found");
       }
       const content = data[0].$content;
       try {
-        if (constants.protocol === 'tcp') {
+        if (constants.protocol === "tcp") {
           await printTcp(content.ip, request.body);
           await reply.send({ ok: true });
         } else {
@@ -34,16 +34,16 @@ export default function registerRoutes(fastify: FastifyInstance) {
         return reply.send({ ok: false });
       }
       await reply.send({ ok: true });
-    },
+    }
   );
 
   fastify.get(
-    '/printers',
+    "/printers",
     {
       schema: printersSchema,
     },
     async (request, reply) => {
-      return reply.send({ hello: 'world' });
-    },
+      return reply.send({ hello: "world" });
+    }
   );
 }

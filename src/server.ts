@@ -1,10 +1,10 @@
-import constants from './constants';
-import fastify from './fastify';
-import { startMonitoring } from './monitorZebra';
+import constants from "./constants";
+import fastify from "./fastify";
+import { startMonitoring } from "./monitorZebra";
 
 fastify.log.info({
   ...constants,
-  accessToken: '***',
+  accessToken: "***",
 });
 
 // Run the server!
@@ -22,8 +22,8 @@ void start();
 // Poll database for zebra printers
 // and check their availability
 if (constants.disableMonitor) {
-  fastify.log.info('zebra printer monitoring is disabled');
+  fastify.log.info("zebra printer monitoring is disabled");
 } else {
-  fastify.log.info('zebra printer monitoring is enabled');
+  fastify.log.info("zebra printer monitoring is enabled");
   void startMonitoring();
 }
