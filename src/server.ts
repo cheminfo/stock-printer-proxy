@@ -1,14 +1,6 @@
-'use strict';
-
-const fastify = require('fastify')({ logger: true });
-const registerRoutes = require('./registerRoutes');
-const monitorZebra = require('./monitorZebra');
-const constants = require('./constants');
-const { port } = constants;
-
-fastify.register(require('fastify-cors'));
-
-registerRoutes(fastify);
+import constants from './constants';
+import fastify from './fastify';
+import { startMonitoring } from './monitorZebra';
 
 fastify.log.info({
   ...constants,
@@ -18,8 +10,8 @@ fastify.log.info({
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(port);
-    console.log(`listening on port ${port}`);
+    await fastify.listen(constants.port);
+    console.log(`listening on port ${constants.port}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
@@ -33,5 +25,5 @@ if (constants.disableMonitor) {
   fastify.log.info('zebra printer monitoring is disabled');
 } else {
   fastify.log.info('zebra printer monitoring is enabled');
-  monitorZebra.start();
+  startMonitoring();
 }
