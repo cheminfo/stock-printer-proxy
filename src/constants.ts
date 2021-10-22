@@ -1,5 +1,3 @@
-'use strict';
-
 const url = process.env.REST_ON_COUCH_URL;
 const database = process.env.REST_ON_COUCH_DATABASE;
 const accessToken = process.env.REST_ON_COUCH_ACCESS_TOKEN;
@@ -23,7 +21,7 @@ if (!port) {
   throw new Error('port is missing');
 }
 
-module.exports = {
+export default {
   url,
   database,
   accessToken,
