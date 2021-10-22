@@ -1,7 +1,7 @@
-import fastify from "fastify";
-import fastifyCors from "fastify-cors";
+import fastify from 'fastify';
+import fastifyCors from 'fastify-cors';
 
-import registerRoutes from "./registerRoutes";
+import registerRoutes from './registerRoutes';
 
 const instance = fastify({ logger: true });
 
