@@ -2,7 +2,6 @@
   "extends": "fastify-tsconfig",
   "compilerOptions": {
     "esModuleInterop": true,
-    "allowJs": true,
     "outDir": "lib",
     "target": "es2020",
     "lib": ["es2020"]
