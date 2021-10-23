@@ -59,20 +59,20 @@ export async function getFormatDocs() {
 async function getPrinters() {
     let printerDocs = await getPrinterDocs();
     const formatDocs = await getFormatDocs();
-    let serverDocs = await roc.getView<string, PrintServerDocument['$content']>(
-        'entryByKind',
-        {
-            key: 'printServer',
-        },
-    );
+    let printServerDocs = await roc.getView<
+        string,
+        PrintServerDocument['$content']
+    >('entryByKind', {
+        key: 'printServer',
+    });
 
-    serverDocs = serverDocs.filter(
+    printServerDocs = printServerDocs.filter(
         (ps) =>
             ps.$content.isOnline !== false &&
             Date.now() - ps.$modificationDate < 10 * MINUTE,
     );
     printerDocs = printerDocs.filter((p) =>
-        serverDocs.some(
+        printServerDocs.some(
             (ps) => ps.$content.macAddress === p.$content.macAddress,
         ),
     );
