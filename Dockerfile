@@ -12,7 +12,8 @@ WORKDIR /stock-printer-proxy-source
 COPY package.json package-lock.json ./
 ENV NODE_ENV production
 RUN npm ci
-COPY --from=builder /build/lib/src/ ./
+RUN mkdir lib
+COPY --from=builder /build/lib ./lib
 
 
-CMD ["node", "src/server.js"]
+CMD ["node", "lib/server.js"]
