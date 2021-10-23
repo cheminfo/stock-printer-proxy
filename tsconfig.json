@@ -1,9 +1,10 @@
 {
-  "extends": "fastify-tsconfig",
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "outDir": "lib",
-    "target": "es2020",
-    "lib": ["es2020"]
-  }
+    "extends": "fastify-tsconfig",
+    "compilerOptions": {
+        "strict": true,
+        "esModuleInterop": true,
+        "outDir": "lib",
+        "target": "es2020",
+        "lib": ["es2020"]
+    }
 }

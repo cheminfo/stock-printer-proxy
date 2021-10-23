@@ -10,6 +10,11 @@ export interface PrintServerDocumentContent {
     ip: string;
     url: string;
     isOnline: boolean;
+    version: number;
+    port: number;
+    protocol: string;
+    kind: 'zebra' | 'blaster';
+    comment?: string;
 }
 
 export interface PrinterDocumentContent {
@@ -18,7 +23,6 @@ export interface PrinterDocumentContent {
     macAddress: string;
     name: string;
     model: string;
-    id: string;
 }
 
 export interface PrinterDocument {
