@@ -1,14 +1,14 @@
 name: Node.js CI
 
 on:
-  push:
-    branches:
-      - $default-branch
-  pull_request:
+    push:
+        branches:
+            - master
+    pull_request:
 
 jobs:
-  nodejs:
-    uses: zakodium/workflows/.github/workflows/nodejs.yml@nodejs-v1
-    with:
-      node-version-matrix: '[14, 16]'
-      lint-check-types: true
+    nodejs:
+        uses: zakodium/workflows/.github/workflows/nodejs.yml@nodejs-v1
+        with:
+            node-version-matrix: '[14, 16]'
+            lint-check-types: true
