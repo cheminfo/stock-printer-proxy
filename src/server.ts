@@ -10,7 +10,10 @@ fastify.log.info({
 // Run the server!
 const start = async () => {
     try {
-        await fastify.listen(constants.port);
+        await fastify.listen(
+            constants.port,
+            process.env.NODE_ENV === 'production' ? '0.0.0.0' : undefined,
+        );
         fastify.log.info(`listening on port ${constants.port}`);
     } catch (err) {
         fastify.log.error(err);
