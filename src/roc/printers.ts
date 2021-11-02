@@ -15,16 +15,26 @@ const MINUTE = 1000 * 60;
 
 export function getPrintServer(id: string) {
     const doc = roc.getDocument<PrintServerDocumentContent>(id);
+    if (doc.$kind !== 'printServer') {
+        throw new Error(`unexpected document kind ${doc.$kind}`);
+    }
+
     return doc.fetch();
 }
 
 export function getPrinter(id: string) {
     const doc = roc.getDocument<PrinterDocumentContent>(id);
+    if (doc.$kind !== 'printer') {
+        throw new Error(`unexpected document kind ${doc.$kind}`);
+    }
     return doc.fetch();
 }
 
 export function getPrintFormat(id: string) {
     const doc = roc.getDocument<FormatDocumentContent>(id);
+    if (doc.$kind !== 'printFormat') {
+        throw new Error(`unexpected document kind ${doc.$kind}`);
+    }
     return doc.fetch();
 }
 

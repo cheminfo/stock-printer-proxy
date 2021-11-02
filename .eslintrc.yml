@@ -1,1 +1,32 @@
 extends: cheminfo-typescript
+rules:
+    '@typescript-eslint/naming-convention':
+        [
+            'error',
+            { selector: ['typeLike'], format: ['PascalCase'] },
+            { selector: ['typeMethod'], format: ['camelCase'] },
+            { selector: ['variable'], format: ['camelCase', 'UPPER_CASE'] },
+            { selector: ['function'], format: ['camelCase', 'PascalCase'] },
+            {
+                selector:
+                    [
+                        'method',
+                        'classProperty',
+                        'classMethod',
+                        'parameterProperty',
+                        'accessor',
+                    ],
+                format: ['camelCase'],
+                leadingUnderscore: 'allow',
+            },
+            {
+                selector:
+                    [
+                        'objectLiteralProperty',
+                        'objectLiteralMethod',
+                        'enumMember',
+                        'typeProperty',
+                    ],
+                format: null,
+            },
+        ]

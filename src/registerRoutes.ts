@@ -2,9 +2,9 @@ import { FastifyInstance } from 'fastify';
 
 import { print } from './print';
 import {
+    getPrinter,
     getPrinterFormatPairs,
     getPrintFormat,
-    getPrintServer,
     getPrintServersByMacAddress,
 } from './roc/printers';
 import {
@@ -75,7 +75,7 @@ export default function registerRoutes(fastify: FastifyInstance) {
         },
         async (request, reply) => {
             try {
-                const printer = await getPrintServer(request.body.printer);
+                const printer = await getPrinter(request.body.printer);
                 const format = await getPrintFormat(request.body.format);
                 const content = twigInterpolateFormat(
                     format.$content,

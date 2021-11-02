@@ -3,6 +3,7 @@ export type PrintDataType = string;
 export interface PrintServerDocument {
     _id: string;
     $content: PrintServerDocumentContent;
+    $kind: 'printServer';
 }
 
 export interface PrintServerDocumentContent {
@@ -28,6 +29,7 @@ export interface PrinterDocumentContent {
 export interface PrinterDocument {
     _id: string;
     $content: PrinterDocumentContent;
+    $kind: 'printer';
 }
 
 export class Printer {
@@ -87,6 +89,7 @@ export interface FormatDocumentContent {
 export interface FormatDocument {
     _id: string;
     $content: FormatDocumentContent;
+    $kind: 'printFormat';
 }
 
 export class Format {
