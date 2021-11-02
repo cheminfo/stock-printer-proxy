@@ -3,7 +3,7 @@ export type PrintDataType = string;
 export interface PrintServerDocument {
     _id: string;
     $content: PrintServerDocumentContent;
-    $kind: 'printServer';
+    $kind: string;
 }
 
 export interface PrintServerDocumentContent {
@@ -29,13 +29,16 @@ export interface PrinterDocumentContent {
 export interface PrinterDocument {
     _id: string;
     $content: PrinterDocumentContent;
-    $kind: 'printer';
+    $kind: string;
 }
 
 export class Printer {
-    private _formats: FormatDocument[];
+    private _formats: Array<FormatDocument>;
     private _printer: PrinterDocument;
-    public constructor(printer: PrinterDocument, formats: FormatDocument[]) {
+    public constructor(
+        printer: PrinterDocument,
+        formats: Array<FormatDocument>,
+    ) {
         // The type of format this p
         this._printer = printer;
         this._formats = formats;
@@ -89,7 +92,7 @@ export interface FormatDocumentContent {
 export interface FormatDocument {
     _id: string;
     $content: FormatDocumentContent;
-    $kind: 'printFormat';
+    $kind: string;
 }
 
 export class Format {

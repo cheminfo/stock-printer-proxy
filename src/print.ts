@@ -3,9 +3,13 @@ import { connect } from 'net';
 import superagent from 'superagent';
 
 import constants from './constants';
-import { PrinterDocumentContent } from './util/printer';
 
-export function print(printer: PrinterDocumentContent, data: string) {
+export function print(
+    printer: {
+        ip: string;
+    },
+    data: string,
+) {
     if (constants.protocol === 'tcp') {
         return printTcp(printer.ip, data);
     } else {

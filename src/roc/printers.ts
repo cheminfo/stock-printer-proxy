@@ -13,29 +13,28 @@ import roc from './roc';
 
 const MINUTE = 1000 * 60;
 
-export function getPrintServer(id: string) {
-    const doc = roc.getDocument<PrintServerDocumentContent>(id);
+export async function getPrintServer(id: string) {
+    const doc = await roc.getDocument<PrintServerDocumentContent>(id).fetch();
     if (doc.$kind !== 'printServer') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
-
-    return doc.fetch();
+    return doc;
 }
 
-export function getPrinter(id: string) {
-    const doc = roc.getDocument<PrinterDocumentContent>(id);
+export async function getPrinter(id: string) {
+    const doc = await roc.getDocument<PrinterDocumentContent>(id).fetch();
     if (doc.$kind !== 'printer') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
-    return doc.fetch();
+    return doc;
 }
 
-export function getPrintFormat(id: string) {
-    const doc = roc.getDocument<FormatDocumentContent>(id);
+export async function getPrintFormat(id: string) {
+    const doc = await roc.getDocument<FormatDocumentContent>(id).fetch();
     if (doc.$kind !== 'printFormat') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
-    return doc.fetch();
+    return doc;
 }
 
 export async function getPrinterDocs() {
