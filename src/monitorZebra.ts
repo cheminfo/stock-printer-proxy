@@ -61,11 +61,16 @@ async function updatePrinterServer(
 ) {
     try {
         const data = await getPrintServersByMacAddress(printer.macAddress);
-        let comment: string | undefined;
+        const comments: string[] = [];
         if (printerCheck) {
+            if (printerCheck.paused) {
+                comments.push('printer is paused');
+            }
             if (printerCheck.serialNumber !== printer.macAddress) {
                 if (printerCheck.serialNumber) {
-                    comment = `found non-matching printer with id ${printerCheck.serialNumber}`;
+                    comments.push(
+                        `found non-matching printer with id ${printerCheck.serialNumber}`,
+                    );
                 }
                 fastify.log.warn(
                     `expected printer to have id (macAddress) to ${
@@ -78,9 +83,10 @@ async function updatePrinterServer(
                 );
             }
         } else {
-            // printerCheck === null means something when wrong before even parsing the response
-            comment =
-                'There was a problem while trying to reach the print server';
+            // printerCheck === null means something went wrong before even parsing the response
+            comments.push(
+                'There was a problem while trying to reach the print server',
+            );
         }
 
         const isOnline =
@@ -97,7 +103,7 @@ async function updatePrinterServer(
             url: `http://${printer.ip}`,
             isOnline: isOnline,
             kind: 'zebra',
-            comment,
+            comment: comments.join(', '),
         };
         if (!data.length) {
             return await roc.create({
