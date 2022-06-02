@@ -1,5 +1,6 @@
 extends: cheminfo-typescript
 rules:
+    'no-undefined': off
     '@typescript-eslint/naming-convention':
         [
             'error',

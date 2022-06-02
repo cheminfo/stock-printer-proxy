@@ -14,7 +14,9 @@ import roc from './roc';
 const MINUTE = 1000 * 60;
 
 export async function getPrintServer(id: string) {
-    const doc = await roc.getDocument<PrintServerDocumentContent>(id).fetch();
+    const doc = await roc
+        .getDocument<PrintServerDocumentContent, string>(id)
+        .fetch();
     if (doc.$kind !== 'printServer') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
@@ -22,7 +24,9 @@ export async function getPrintServer(id: string) {
 }
 
 export async function getPrinter(id: string) {
-    const doc = await roc.getDocument<PrinterDocumentContent>(id).fetch();
+    const doc = await roc
+        .getDocument<PrinterDocumentContent, string>(id)
+        .fetch();
     if (doc.$kind !== 'printer') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
@@ -30,7 +34,9 @@ export async function getPrinter(id: string) {
 }
 
 export async function getPrintFormat(id: string) {
-    const doc = await roc.getDocument<FormatDocumentContent>(id).fetch();
+    const doc = await roc
+        .getDocument<FormatDocumentContent, string>(id)
+        .fetch();
     if (doc.$kind !== 'printFormat') {
         throw new Error(`unexpected document kind ${doc.$kind}`);
     }
@@ -61,7 +67,7 @@ export async function getFormatDocs() {
         },
     );
 
-    printFormats.sort((a, b) => b?.$modificationDate - a.$modificationDate);
+    printFormats.sort((a, b) => b.$modificationDate - a.$modificationDate);
     return printFormats;
 }
 
@@ -77,7 +83,7 @@ async function getPrinters() {
 
     printServerDocs = printServerDocs.filter(
         (ps) =>
-            ps.$content.isOnline !== false &&
+            ps.$content.isOnline &&
             Date.now() - ps.$modificationDate < 10 * MINUTE,
     );
     printerDocs = printerDocs.filter((p) =>

@@ -105,7 +105,7 @@ async function updatePrinterServer(
             port: 80,
             protocol: 'http',
             url: `http://${printer.ip}`,
-            isOnline: isOnline,
+            isOnline,
             kind: 'zebra',
             comment: comments.join(', '),
         };
