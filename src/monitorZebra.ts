@@ -60,6 +60,10 @@ async function updatePrinterServer(
     printerCheck: PrinterParserResult | null,
 ) {
     try {
+        if (!printer.macAddress) {
+            fastify.log.info('Not updating for printer without macAddress');
+            return;
+        }
         const data = await getPrintServersByMacAddress(printer.macAddress);
         const comments: string[] = [];
         if (printerCheck) {
@@ -107,7 +111,7 @@ async function updatePrinterServer(
         };
         if (!data.length) {
             return await roc.create({
-                $id: null,
+                $id: printer.macAddress,
                 $kind: 'printServer',
                 $content: content,
                 $owners: ['printerAdmin'],
