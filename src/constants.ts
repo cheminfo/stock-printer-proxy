@@ -1,7 +1,7 @@
 const url = process.env.REST_ON_COUCH_URL;
 const database = process.env.REST_ON_COUCH_DATABASE;
 const accessToken = process.env.REST_ON_COUCH_ACCESS_TOKEN;
-const port = process.env.SERVER_PORT;
+const port = Number.parseInt(process.env.SERVER_PORT || '', 10);
 const protocol = process.env.PRINTER_PROTOCOL || 'http';
 const disableMonitor = process.env.DISABLE_MONITOR || false;
 
@@ -17,8 +17,8 @@ if (!accessToken) {
     throw new Error('missing env variable REST_ON_COUCH_ACCESS_TOKEN');
 }
 
-if (!port) {
-    throw new Error('port is missing');
+if (Number.isNaN(port)) {
+    throw new Error('port is missing or is not a number');
 }
 
 export default {
