@@ -5,12 +5,12 @@ import registerRoutes from './registerRoutes';
 
 const instance = fastify({
     logger: true,
-    ajv: {
-        customOptions: {
-            strict: 'log',
-            keywords: ['kind', 'modifier'],
-        },
-    },
+    // ajv: {
+    //     customOptions: {
+    //         strict: 'log',
+    //         keywords: ['kind', 'modifier'],
+    //     },
+    // },
 });
 
 void instance.register(fastifyCors);
