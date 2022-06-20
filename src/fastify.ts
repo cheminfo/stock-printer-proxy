@@ -5,6 +5,7 @@ import registerRoutes from './registerRoutes';
 
 const instance = fastify({
     logger: true,
+    // TODO: uncomment this when upgrading to fastify v4
     // ajv: {
     //     customOptions: {
     //         strict: 'log',
