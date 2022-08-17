@@ -5,6 +5,10 @@
 -   Sends printer status to rest-on-couch printer database
 -   Authentication to rest-on-couch uses an [access token](https://github.com/cheminfo/rest-on-couch/blob/main/API.md#tokens)
 
+The user should have the rights read, write, create and owner.
+
+![rights](./rights.png)
+
 ## Env variables
 
 Those env variables must be defined:
