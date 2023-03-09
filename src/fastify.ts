@@ -1,21 +1,48 @@
 import fastifyCors from '@fastify/cors';
+import fastifySwagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
+
+import pkg from '../package.json';
 
 import registerRoutes from './registerRoutes';
 
-const instance = fastify({
-    logger: true,
-    // TODO: uncomment this when upgrading to fastify v4
-    // ajv: {
-    //     customOptions: {
-    //         strict: 'log',
-    //         keywords: ['kind', 'modifier'],
-    //     },
-    // },
+let instancePromise = Promise.resolve(
+    fastify({
+        logger: true,
+        ajv: {
+            customOptions: {
+                strict: 'log',
+                keywords: ['kind', 'modifier'],
+            },
+        },
+    }),
+).then(async (instance) => {
+    void instance.register(fastifyCors);
+
+    await instance.register(fastifySwagger, {
+        swagger: {
+            info: {
+                title: 'Zebra printer proxy API',
+                version: pkg.version,
+            },
+        },
+    });
+
+    await instance.register(swaggerUi, {
+        routePrefix: '/documentation',
+        uiConfig: {
+            docExpansion: 'full',
+            deepLinking: false,
+            defaultModelExpandDepth: 2,
+        },
+    });
+
+    registerRoutes(instance);
+
+    return instance;
 });
 
-void instance.register(fastifyCors);
-
-registerRoutes(instance);
-
-export default instance;
+export async function getFastify() {
+    return instancePromise;
+}

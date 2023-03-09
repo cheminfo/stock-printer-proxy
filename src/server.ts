@@ -1,24 +1,35 @@
 import fastifyGracefulShutdown from 'fastify-graceful-shutdown';
 
 import constants from './constants';
-import fastify from './fastify';
+import { getFastify } from './fastify';
 import { startMonitoring } from './monitorZebra';
-
-void fastify.register(fastifyGracefulShutdown);
-
-fastify.log.info({
-    ...constants,
-    accessToken: '***',
-});
-
-fastify.after(() => {
-    fastify.gracefulShutdown((_, next) => {
-        next();
-    });
-});
 
 // Run the server!
 const start = async () => {
+    const fastify = await getFastify();
+
+    void fastify.register(fastifyGracefulShutdown);
+
+    fastify.log.info({
+        ...constants,
+        accessToken: '***',
+    });
+
+    fastify.after(() => {
+        fastify.gracefulShutdown((_, next) => {
+            next();
+        });
+    });
+
+    // Poll database for zebra printers
+    // and check their availability
+    if (constants.disableMonitor) {
+        fastify.log.info('zebra printer monitoring is disabled');
+    } else {
+        fastify.log.info('zebra printer monitoring is enabled');
+        void startMonitoring();
+    }
+
     try {
         await fastify.listen({
             port: constants.port,
@@ -30,13 +41,5 @@ const start = async () => {
         process.exit(1);
     }
 };
-void start();
 
-// Poll database for zebra printers
-// and check their availability
-if (constants.disableMonitor) {
-    fastify.log.info('zebra printer monitoring is disabled');
-} else {
-    fastify.log.info('zebra printer monitoring is enabled');
-    void startMonitoring();
-}
+void start();
