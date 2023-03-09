@@ -5,6 +5,7 @@ import fastify from 'fastify';
 
 import pkg from '../package.json';
 
+import constants from './constants';
 import registerRoutes from './registerRoutes';
 
 let instancePromise = Promise.resolve(
@@ -26,6 +27,8 @@ let instancePromise = Promise.resolve(
                 title: 'Zebra printer proxy API',
                 version: pkg.version,
             },
+            host: constants.host,
+            basePath: constants.basePath,
         },
     });
 
