@@ -30,7 +30,7 @@
         "prettier": "prettier --check src",
         "prettier-write": "prettier --write src",
         "start": "env-cmd node lib/server.js",
-        "start-dev": "env-cmd nodemon --config nodemon.json src/server.ts",
+        "dev": "env-cmd nodemon --config nodemon.json src/server.ts",
         "test-only": "jest"
     },
     "devDependencies": {
