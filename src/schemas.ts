@@ -46,9 +46,12 @@ export const printInterpolateSchema = {
         format: Type.String({
             description: 'The id of the template format to print with',
         }),
-        data: Type.Any({
-            description: 'The data to interpolate into the template',
-        }),
+        data: Type.Object(
+            {},
+            {
+                description: 'The data to interpolate into the template',
+            },
+        ),
     }),
     response: {
         200: Type.Object({
