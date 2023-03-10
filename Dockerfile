@@ -16,4 +16,4 @@ RUN mkdir lib
 COPY --from=builder /build/lib ./lib
 
 
-CMD ["node", "lib/server.js"]
+CMD ["node", "lib/src/server.js"]

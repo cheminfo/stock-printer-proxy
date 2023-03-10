@@ -13,18 +13,25 @@ const interval = 60000 * 5; // Every 5 minute
 const failInterval = 60000; // Every 1 minute if it fails
 
 export async function startMonitoring() {
+    let timeout: NodeJS.Timeout;
     const fastify = await getFastify();
     try {
         await updateStatus();
-        setTimeout(() => {
+        fastify.log.info('new timeout');
+        timeout = setTimeout(() => {
             void startMonitoring();
         }, interval);
     } catch (e) {
         fastify.log.error(e, 'Error while updating zebra printer status');
-        setTimeout(() => {
+        timeout = setTimeout(() => {
             void startMonitoring();
         }, failInterval);
     }
+    return () => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+    };
 }
 
 async function updateStatus() {
