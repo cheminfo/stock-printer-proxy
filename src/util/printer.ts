@@ -84,6 +84,7 @@ export class Printer {
 export interface FormatDocumentContent {
     name: string;
     type: string;
+    example: any;
     twig?: boolean;
     models: {
         name: string;
@@ -108,5 +109,8 @@ export class Format {
     }
     public type() {
         return this.format.$content.type;
+    }
+    public example() {
+        return this.format.$content.example || {};
     }
 }

@@ -60,6 +60,7 @@ export default function registerRoutes(fastify: FastifyInstance) {
                     format: {
                         id: format.id(),
                         name: format.name(),
+                        example: format.example(),
                     },
                 })),
             );

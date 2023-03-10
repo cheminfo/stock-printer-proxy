@@ -1,6 +1,6 @@
 import superagent from 'superagent';
 
-import fastify from './fastify';
+import { getFastify } from './fastify';
 import { getPrinterDocs, getPrintServersByMacAddress } from './roc/printers';
 import roc from './roc/roc';
 import { parsePrinterResponse, PrinterParserResult } from './util';
@@ -13,17 +13,25 @@ const interval = 60000 * 5; // Every 5 minute
 const failInterval = 60000; // Every 1 minute if it fails
 
 export async function startMonitoring() {
+    let timeout: NodeJS.Timeout;
+    const fastify = await getFastify();
     try {
         await updateStatus();
-        setTimeout(() => {
+        fastify.log.info('new timeout');
+        timeout = setTimeout(() => {
             void startMonitoring();
         }, interval);
     } catch (e) {
         fastify.log.error(e, 'Error while updating zebra printer status');
-        setTimeout(() => {
+        timeout = setTimeout(() => {
             void startMonitoring();
         }, failInterval);
     }
+    return () => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+    };
 }
 
 async function updateStatus() {
@@ -42,6 +50,7 @@ async function updateStatus() {
 async function checkPrinter(
     printer: PrinterDocumentContent,
 ): Promise<PrinterParserResult | null> {
+    const fastify = await getFastify();
     try {
         const res = await superagent.get(`http://${printer.ip}`).timeout({
             response: 10000,
@@ -59,6 +68,7 @@ async function updatePrinterServer(
     printer: PrinterDocumentContent,
     printerCheck: PrinterParserResult | null,
 ) {
+    const fastify = await getFastify();
     try {
         if (!printer.macAddress) {
             fastify.log.info('Not updating for printer without macAddress');
