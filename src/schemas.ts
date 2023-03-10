@@ -29,6 +29,10 @@ export const printersSchema = {
                 format: Type.Object({
                     id: Type.String(),
                     name: Type.String(),
+                    example: Type.Any({
+                        description:
+                            'An example of data which can be passed to the print endpoint',
+                    }),
                 }),
             }),
         ),
@@ -46,12 +50,9 @@ export const printInterpolateSchema = {
         format: Type.String({
             description: 'The id of the template format to print with',
         }),
-        data: Type.Object(
-            {},
-            {
-                description: 'The data to interpolate into the template',
-            },
-        ),
+        data: Type.Any({
+            description: 'The data to interpolate into the template',
+        }),
     }),
     response: {
         200: Type.Object({
