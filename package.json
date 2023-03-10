@@ -30,7 +30,8 @@
         "prettier-write": "prettier --write src",
         "start": "env-cmd node lib/src/server.js",
         "dev": "env-cmd nodemon --config nodemon.json src/server.ts",
-        "test-only": "jest"
+        "test-only": "jest",
+        "test": "npm run prettier && npm run eslint && npm run check-types && npm run test-only"
     },
     "devDependencies": {
         "@types/node": "^18.14.6",
