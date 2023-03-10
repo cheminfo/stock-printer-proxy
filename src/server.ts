@@ -1,5 +1,7 @@
 import process from 'process';
 
+import gracefulShutdown from 'fastify-graceful-shutdown';
+
 import constants from './constants';
 import { getFastify } from './fastify';
 import { startMonitoring } from './monitorZebra';
@@ -13,18 +15,24 @@ const start = async () => {
     });
     // Poll database for zebra printers
     // and check their availability
+    let stopMonitoring: (() => void) | undefined;
     if (constants.disableMonitor) {
         fastify.log.info('zebra printer monitoring is disabled');
     } else {
         fastify.log.info('zebra printer monitoring is enabled');
-        const stopMonitoring = await startMonitoring();
-        fastify.addHook('onClose', async () => {
-            // TODO: this is actually not called after a SIGINT but it's unclear why
-            // Does fastify exit on SIGINT?
-            stopMonitoring();
-        });
+        stopMonitoring = await startMonitoring();
     }
 
+    void fastify.register(gracefulShutdown);
+
+    fastify.after(() => {
+        fastify.gracefulShutdown((_, done) => {
+            if (stopMonitoring) {
+                stopMonitoring();
+            }
+            done();
+        });
+    });
     try {
         await fastify.listen({
             port: constants.port,

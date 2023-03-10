@@ -17,7 +17,6 @@ export async function startMonitoring() {
     const fastify = await getFastify();
     try {
         await updateStatus();
-        fastify.log.info('new timeout');
         timeout = setTimeout(() => {
             void startMonitoring();
         }, interval);
