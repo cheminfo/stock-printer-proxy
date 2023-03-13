@@ -18,30 +18,6 @@ import {
 import { twigInterpolateFormat } from './util/twig';
 
 export default function registerRoutes(fastify: FastifyInstance) {
-    fastify.post<{
-        Querystring: PstprntQuery;
-        Body: string;
-    }>(
-        '/pstprnt',
-        {
-            schema: pstprntSchema,
-        },
-        async (request, reply) => {
-            const mac = request.query.mac;
-            const data = await getPrintServersByMacAddress(mac);
-            if (!data.length) {
-                return reply.code(404).send('mac address not found');
-            }
-            const content = data[0].$content;
-            try {
-                await print(content, request.body);
-            } catch (e) {
-                return reply.send({ ok: false });
-            }
-            await reply.send({ ok: true });
-        },
-    );
-
     fastify.get<{
         Querystring: PrintersQuery;
     }>(
@@ -88,6 +64,30 @@ export default function registerRoutes(fastify: FastifyInstance) {
                 fastify.log.error(e);
                 await reply.send({ ok: false });
             }
+        },
+    );
+
+    fastify.post<{
+        Querystring: PstprntQuery;
+        Body: string;
+    }>(
+        '/pstprnt',
+        {
+            schema: pstprntSchema,
+        },
+        async (request, reply) => {
+            const mac = request.query.mac;
+            const data = await getPrintServersByMacAddress(mac);
+            if (!data.length) {
+                return reply.code(404).send('mac address not found');
+            }
+            const content = data[0].$content;
+            try {
+                await print(content, request.body);
+            } catch (e) {
+                return reply.send({ ok: false });
+            }
+            await reply.send({ ok: true });
         },
     );
 }

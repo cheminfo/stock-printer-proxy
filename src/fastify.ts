@@ -8,6 +8,12 @@ import pkg from '../package.json';
 import constants from './constants';
 import registerRoutes from './registerRoutes';
 
+const serviceDescription = `
+Web service for sending print jobs to Zebra printers. The service is connected to a backend which manages printers and their associated label and print formats, and monitors which printers are ready to receive print jobs and which are not.
+
+The service only allows to get the list of available printers and send print jobs, not to manage printers or layout formats.
+`;
+
 let instancePromise = Promise.resolve(
     fastify({
         logger: true,
@@ -26,9 +32,20 @@ let instancePromise = Promise.resolve(
             info: {
                 title: 'Zebra printer proxy API',
                 version: pkg.version,
+                description: serviceDescription,
             },
             host: constants.host,
             basePath: constants.basePath,
+            tags: [
+                {
+                    name: 'list',
+                    description: 'List printers and formats',
+                },
+                {
+                    name: 'print',
+                    description: 'Send print jobs',
+                },
+            ],
         },
     });
 
@@ -38,6 +55,7 @@ let instancePromise = Promise.resolve(
             docExpansion: 'full',
             deepLinking: false,
             defaultModelExpandDepth: 2,
+            filter: false,
         },
     });
 
