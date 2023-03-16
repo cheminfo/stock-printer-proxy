@@ -14,6 +14,8 @@ import {
     PrintersQuery,
     printInterpolateSchema,
     PrintInterpolateBody,
+    GetPrintQuery,
+    getPrintSchema,
 } from './schemas';
 import { twigInterpolateFormat } from './util/twig';
 
@@ -64,6 +66,40 @@ export default function registerRoutes(fastify: FastifyInstance) {
                 fastify.log.error(e);
                 await reply.send({ ok: false });
             }
+        },
+    );
+
+    fastify.get<{
+        Querystring: GetPrintQuery;
+    }>(
+        '/print',
+        {
+            schema: getPrintSchema,
+        },
+        async (request, reply) => {
+            const { json, type, ...otherProperties } = request.query;
+            const formatPairs = await getPrinterFormatPairs(type);
+
+            if (formatPairs.length === 0) {
+                return reply.send(
+                    'No printers are available for the given type.',
+                );
+            }
+            const firstPair = formatPairs[0];
+
+            const format = await getPrintFormat(firstPair.format.id());
+            const printer = await getPrinter(firstPair.printer.id());
+            const data = json
+                ? {
+                      ...otherProperties,
+                      ...JSON.parse(json),
+                  }
+                : otherProperties;
+            const printData = twigInterpolateFormat(format.$content, data);
+            await print(printer.$content, printData);
+            await reply.send(
+                `Print job sent to ${printer.$content.name} using the ${format.$content.name} format.`,
+            );
         },
     );
 

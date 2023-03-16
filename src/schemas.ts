@@ -16,7 +16,21 @@ export const pstprntSchema = {
     },
 };
 
+export const getPrintSchema = {
+    description:
+        'Send a print job through a GET request. This endpoint is available ',
+    tags: ['print'],
+    querystring: Type.Object(
+        {
+            type: Type.String(),
+            json: Type.Optional(Type.String()),
+        },
+        { additionalProperties: true },
+    ),
+};
+
 export type PstprntQuery = Static<typeof pstprntSchema.querystring>;
+export type GetPrintQuery = Static<typeof getPrintSchema.querystring>;
 
 const queryStringSchema = Type.Object({
     type: Type.String(),
