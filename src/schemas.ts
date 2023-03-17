@@ -17,13 +17,19 @@ export const pstprntSchema = {
 };
 
 export const getPrintSchema = {
-    description:
-        'Send a print job through a GET request. This endpoint is available ',
+    description: `Send a print job through a GET request. The data can either be passed as a serialized JSON object in the "json" parameter, or encoded as different parameters in the query string.
+        Example: \`/print?type=sample&json=%7B%22foo%22%3A%22one%22%2C%22bar%22%3A%22two%22%7D\` is equivalent to \`/print?type=sample&foo=one&bar=two\``,
     tags: ['print'],
     querystring: Type.Object(
         {
-            type: Type.String(),
-            json: Type.Optional(Type.String()),
+            type: Type.String({
+                description: 'The type of data you would like printed.',
+            }),
+            json: Type.Optional(
+                Type.String({
+                    description: 'The data to print, as a JSON string.',
+                }),
+            ),
         },
         { additionalProperties: true },
     ),
