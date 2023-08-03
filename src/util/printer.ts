@@ -33,12 +33,9 @@ export interface PrinterDocument {
 }
 
 export class Printer {
-    private _formats: Array<FormatDocument>;
+    private _formats: FormatDocument[];
     private _printer: PrinterDocument;
-    public constructor(
-        printer: PrinterDocument,
-        formats: Array<FormatDocument>,
-    ) {
+    public constructor(printer: PrinterDocument, formats: FormatDocument[]) {
         // The type of format this p
         this._printer = printer;
         this._formats = formats;
@@ -86,9 +83,9 @@ export interface FormatDocumentContent {
     type: string;
     example: any;
     twig?: boolean;
-    models: {
+    models: Array<{
         name: string;
-    }[];
+    }>;
 }
 export interface FormatDocument {
     _id: string;
