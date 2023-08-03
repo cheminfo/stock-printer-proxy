@@ -10,7 +10,7 @@ export function parsePrinterResponse(text: string): PrinterParserResult {
         paused: false,
         serialNumber: null,
     };
-    if (text.includes('>READY<') || text.includes('>BEREIT<')) {
+    if (text.includes('>READY<')) {
         result.isOnline = true;
     } else if (text.includes('>PAUSED<')) {
         result.paused = true;

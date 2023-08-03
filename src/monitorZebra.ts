@@ -51,10 +51,13 @@ async function checkPrinter(
 ): Promise<PrinterParserResult | null> {
     const fastify = await getFastify();
     try {
-        const res = await superagent.get(`http://${printer.ip}`).timeout({
-            response: 10000,
-            deadline: 20000,
-        });
+        const res = await superagent
+            .get(`http://${printer.ip}`)
+            .set('Accept-Language', 'en-US')
+            .timeout({
+                response: 10000,
+                deadline: 20000,
+            });
 
         return parsePrinterResponse(res.text);
     } catch (e) {
