@@ -39,7 +39,7 @@ async function updateStatus() {
         (printer) => printer.$content.kind === 'zebra' && printer.$content.ip,
     );
 
-    for (let printer of printers) {
+    for (const printer of printers) {
         const data = printer.$content;
         const printerCheck = await checkPrinter(data);
         await updatePrinterServer(data, printerCheck);

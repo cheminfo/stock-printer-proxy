@@ -14,7 +14,7 @@ Web service for sending print jobs to Zebra printers. The service is connected t
 The service only allows to get the list of available printers and send print jobs, not to manage printers or layout formats.
 `;
 
-let instancePromise = Promise.resolve(
+const instancePromise = Promise.resolve(
     fastify({
         logger: true,
         ajv: {

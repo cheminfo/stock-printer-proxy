@@ -10,10 +10,10 @@ export function twigInterpolateFormat(
     if (!printFormat.twig) {
         throw new Error('twig processor expect twig property in format');
     }
-    let template = twig.twig({
+    const template = twig.twig({
         data: printFormat.twig,
     });
     // Render molfile if exists
-    let text = template.render(data);
+    const text = template.render(data);
     return text;
 }
