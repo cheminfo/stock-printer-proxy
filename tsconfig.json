@@ -2,6 +2,8 @@
     "extends": "@zakodium/tsconfig",
     "compilerOptions": {
         "outDir": "lib",
-        "resolveJsonModule": true
+        "sourceMap": false,
+        "declaration": false,
+        "declarationMap": false
     }
 }
