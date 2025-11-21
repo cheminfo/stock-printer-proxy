@@ -26,11 +26,10 @@ const start = async () => {
     void fastify.register(gracefulShutdown);
 
     fastify.after(() => {
-        fastify.gracefulShutdown((_, done) => {
+        fastify.gracefulShutdown(() => {
             if (stopMonitoring) {
                 stopMonitoring();
             }
-            done();
         });
     });
     try {

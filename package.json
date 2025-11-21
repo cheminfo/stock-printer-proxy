@@ -8,19 +8,32 @@
     "author": "Daniel Kostro <kostro.d@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@fastify/cors": "^8.3.0",
-        "@fastify/swagger": "^8.8.0",
-        "@fastify/swagger-ui": "^1.9.3",
-        "@sinclair/typebox": "^0.30.2",
-        "@types/jest": "^30.0.0",
-        "@types/twig": "^1.12.9",
-        "body-parser": "^1.20.2",
-        "fastify": "^4.21.0",
-        "fastify-graceful-shutdown": "^3.5.1",
-        "rest-on-couch-client": "^5.3.1",
+        "@fastify/cors": "^11.1.0",
+        "@fastify/swagger": "^9.6.1",
+        "@fastify/swagger-ui": "^5.2.3",
+        "@sinclair/typebox": "^0.34.41",
+        "body-parser": "^2.2.0",
+        "fastify": "^5.6.2",
+        "fastify-graceful-shutdown": "^5.0.0",
+        "rest-on-couch-client": "^6.0.0",
         "superagent": "^8.0.9",
+        "twig": "^1.17.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^30.0.0",
+        "@types/node": "^24.10.1",
+        "@types/superagent": "^4.1.18",
+        "@types/twig": "^1.12.17",
+        "env-cmd": "^11.0.0",
+        "eslint": "^9.39.1",
+        "eslint-config-zakodium": "^18.0.0",
+        "fastify-tsconfig": "^3.0.0",
+        "jest": "^30.2.0",
+        "nodemon": "^3.1.11",
+        "prettier": "^3.6.2",
         "ts-jest": "^29.4.5",
-        "twig": "^1.16.0"
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
     },
     "scripts": {
         "build": "tsc",
@@ -33,19 +46,6 @@
         "dev": "env-cmd nodemon --config nodemon.json src/server.ts",
         "test-only": "jest",
         "test": "npm run prettier && npm run eslint && npm run check-types && npm run test-only"
-    },
-    "devDependencies": {
-        "@types/node": "^24.10.1",
-        "@types/superagent": "^4.1.18",
-        "env-cmd": "^11.0.0",
-        "eslint": "^9.39.1",
-        "eslint-config-zakodium": "^18.0.0",
-        "fastify-tsconfig": "^1.0.1",
-        "jest": "^30.2.0",
-        "nodemon": "^3.1.11",
-        "prettier": "^3.6.2",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3"
     },
     "volta": {
         "node": "24.11.1"
