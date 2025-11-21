@@ -13,3 +13,5 @@ jobs:
             node-version-matrix: '[22,24]'
             lint-check-types: true
             upload-coverage: false
+            # Not a package
+            disable-test-package: true

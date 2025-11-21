@@ -3,7 +3,6 @@
     "name": "stock-printer-proxy",
     "version": "6.4.0",
     "description": "A public server to proxy requests to printers on the intranet",
-    "main": "src/server.js",
     "repository": "git@github.com:cheminfo/stock-printer-proxy.git",
     "author": "Daniel Kostro <kostro.d@gmail.com>",
     "license": "MIT",
