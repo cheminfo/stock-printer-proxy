@@ -7,6 +7,7 @@
     "repository": "git@github.com:cheminfo/stock-printer-proxy.git",
     "author": "Daniel Kostro <kostro.d@gmail.com>",
     "license": "MIT",
+    "type": "module",
     "dependencies": {
         "@fastify/cors": "^11.1.0",
         "@fastify/swagger": "^9.6.1",
@@ -24,10 +25,10 @@
         "@types/node": "^24.10.1",
         "@types/superagent": "^4.1.18",
         "@types/twig": "^1.12.17",
+        "@zakodium/tsconfig": "^1.0.2",
         "env-cmd": "^11.0.0",
         "eslint": "^9.39.1",
         "eslint-config-zakodium": "^18.0.0",
-        "fastify-tsconfig": "^3.0.0",
         "jest": "^30.2.0",
         "nodemon": "^3.1.11",
         "prettier": "^3.6.2",
@@ -43,7 +44,7 @@
         "prettier": "prettier --check ./",
         "prettier-write": "prettier --write ./",
         "start": "env-cmd node lib/src/server.js",
-        "dev": "env-cmd nodemon --config nodemon.json src/server.ts",
+        "dev": "node --env-file=.env src/server.ts",
         "test-only": "jest",
         "test": "npm run prettier && npm run eslint && npm run check-types && npm run test-only"
     },
