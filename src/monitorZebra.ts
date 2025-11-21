@@ -1,7 +1,5 @@
 import assert from 'node:assert';
 
-import superagent from 'superagent';
-
 import { getFastify } from './fastify.ts';
 import { getPrintServersByMacAddress, getPrinterDocs } from './roc/printers.ts';
 import roc from './roc/roc.ts';
@@ -56,15 +54,17 @@ async function checkPrinter(
 ): Promise<PrinterParserResult | null> {
     const fastify = await getFastify();
     try {
-        const res = await superagent
-            .get(`http://${printer.ip}`)
-            .set('Accept-Language', 'en-US')
-            .timeout({
-                response: 10000,
-                deadline: 20000,
-            });
+        const res = await fetch(`http://${printer.ip}`, {
+            method: 'GET',
+            headers: {
+                'Accept-Language': 'en-US',
+            },
+            signal: AbortSignal.timeout(20000),
+        });
 
-        return parsePrinterResponse(res.text);
+        const text = await res.text();
+
+        return parsePrinterResponse(text);
     } catch (e) {
         fastify.log.error(e, 'Error while checking printer');
         return null;

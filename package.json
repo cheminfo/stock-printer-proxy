@@ -17,12 +17,10 @@
         "fastify": "^5.6.2",
         "fastify-graceful-shutdown": "^5.0.0",
         "rest-on-couch-client": "^6.0.0",
-        "superagent": "^8.0.9",
         "twig": "^1.17.1"
     },
     "devDependencies": {
         "@types/node": "^24.10.1",
-        "@types/superagent": "^4.1.18",
         "@types/twig": "^1.12.17",
         "@zakodium/tsconfig": "^1.0.2",
         "eslint": "^9.39.1",

@@ -1,7 +1,5 @@
 import { connect } from 'net';
 
-import superagent from 'superagent';
-
 import constants from './constants.ts';
 
 export function print(
@@ -26,14 +24,17 @@ function printTcp(address: string, data: string) {
     });
 }
 
-function printHttp(url: string, data: string) {
+async function printHttp(url: string, data: string) {
     const printUrl = `${url}/pstprnt`;
-    return superagent
-        .post(printUrl)
-        .timeout({
-            response: 10000,
-            deadline: 30000,
-        })
-        .send(data)
-        .set('Content-Length', String(data.length));
+    const res = await fetch(printUrl, {
+        method: 'POST',
+        body: data,
+        headers: {
+            'Content-Length': String(data.length),
+        },
+        signal: AbortSignal.timeout(30000), // 30 seconds
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP print request failed with status ${res.status}`);
+    }
 }
