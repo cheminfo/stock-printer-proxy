@@ -17,4 +17,7 @@ Those env variables must be defined:
 -   REST_ON_COUCH_DATABASE
 -   REST_ON_COUCH_ACCESS_TOKEN
 -   SERVER_PORT
--   PRINTER_PROTOCOL - can be http or tcp
+-   PRINTER_PROTOCOL - can be http or tcp, default is `http`
+-   DISABLE_MONITOR - Do not update registered printers' status in the database, default is `false`
+-   HOST - Server host, e.g. `printers.my-domain.com`, default is `localhost:<PORT>` - Only needed if you want to expose the swagger documentation of the service.
+-   BASE_PATH - Base path for the server, default is `/` - Only needed if you want to expose the swagger documentation of the service.
