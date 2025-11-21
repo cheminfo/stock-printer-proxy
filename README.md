@@ -17,6 +17,9 @@ Run a dev server which restarts automatically on code changes:
 npm run dev
 ```
 
+The dev server has monitoring disabled so it won't be doing DB operations.
+The docs can be accessed on http://127.0.0.1:7770/documentation
+
 ## Env variables
 
 Those env variables must be defined:
@@ -27,5 +30,5 @@ Those env variables must be defined:
 - SERVER_PORT
 - PRINTER_PROTOCOL - can be http or tcp, default is `http`
 - DISABLE_MONITOR - Do not update registered printers' status in the database, default is `false`
-- HOST - Server host, e.g. `printers.my-domain.com`, default is `localhost:<PORT>` - Only needed if you want to expose the swagger documentation of the service.
+- HOST - Server host, e.g. `printers.my-domain.com`, default is `127.0.0.1:<PORT>` - Only needed if you want to expose the swagger documentation of the service.
 - BASE_PATH - Base path for the server, default is `/` - Only needed if you want to expose the swagger documentation of the service.
