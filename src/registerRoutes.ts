@@ -1,21 +1,23 @@
-import { FastifyInstance } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 import { print } from './print';
 import {
-    getPrinter,
-    getPrinterFormatPairs,
     getPrintFormat,
     getPrintServersByMacAddress,
+    getPrinter,
+    getPrinterFormatPairs,
 } from './roc/printers';
-import {
-    pstprntSchema,
-    printersSchema,
-    PstprntQuery,
-    PrintersQuery,
-    printInterpolateSchema,
-    PrintInterpolateBody,
+import type {
     GetPrintQuery,
+    PrintInterpolateBody,
+    PrintersQuery,
+    PstprntQuery,
+} from './schemas';
+import {
     getPrintSchema,
+    printInterpolateSchema,
+    printersSchema,
+    pstprntSchema,
 } from './schemas';
 import { twigInterpolateFormat } from './util/twig';
 
@@ -120,7 +122,7 @@ export default function registerRoutes(fastify: FastifyInstance) {
             const content = data[0].$content;
             try {
                 await print(content, request.body);
-            } catch (e) {
+            } catch {
                 return reply.send({ ok: false });
             }
             await reply.send({ ok: true });

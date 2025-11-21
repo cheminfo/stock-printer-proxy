@@ -1,13 +1,13 @@
-import {
+import type {
     FormatDocument,
     FormatDocumentContent,
     PrintDataType,
-    Printer,
-    PrinterDocument,
-    PrinterDocumentContent,
     PrintServerDocument,
     PrintServerDocumentContent,
+    PrinterDocument,
+    PrinterDocumentContent,
 } from '../util/printer';
+import { Printer } from '../util/printer';
 
 import roc from './roc';
 

@@ -1,12 +1,13 @@
 import superagent from 'superagent';
 
 import { getFastify } from './fastify';
-import { getPrinterDocs, getPrintServersByMacAddress } from './roc/printers';
+import { getPrintServersByMacAddress, getPrinterDocs } from './roc/printers';
 import roc from './roc/roc';
-import { parsePrinterResponse, PrinterParserResult } from './util';
-import {
-    PrinterDocumentContent,
+import type { PrinterParserResult } from './util';
+import { parsePrinterResponse } from './util';
+import type {
     PrintServerDocumentContent,
+    PrinterDocumentContent,
 } from './util/printer';
 
 const interval = 60000 * 5; // Every 5 minute
