@@ -6,10 +6,10 @@ import type {
     PrintServerDocumentContent,
     PrinterDocument,
     PrinterDocumentContent,
-} from '../util/printer';
-import { Printer } from '../util/printer';
+} from '../util/printer.ts';
+import { Printer } from '../util/printer.ts';
 
-import roc from './roc';
+import roc from './roc.ts';
 
 const MINUTE = 1000 * 60;
 

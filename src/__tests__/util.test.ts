@@ -1,4 +1,8 @@
-import { parsePrinterResponse } from '../util';
+import { describe, test } from 'node:test';
+
+import { expect } from 'expect';
+
+import { parsePrinterResponse } from '../util.ts';
 
 const english = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
@@ -64,18 +68,20 @@ Support: <A HREF="https://www.zebra.com/support.html">https://www.zebra.com/supp
 </HTML>
 `;
 
-test('parse printer result (english)', () => {
-    const parsed = parsePrinterResponse(english);
-    expect(parsed).toMatchObject({
-        isOnline: true,
-        serialNumber: 'ACI-PRT10',
+await describe('parse printer home page', async () => {
+    await test('parse printer result (english)', () => {
+        const parsed = parsePrinterResponse(english);
+        expect(parsed).toMatchObject({
+            isOnline: true,
+            serialNumber: 'ACI-PRT10',
+        });
     });
-});
 
-test('parse printer result not ready', () => {
-    const parsed = parsePrinterResponse(englishError);
-    expect(parsed).toMatchObject({
-        isOnline: false,
-        serialNumber: 'ACI-PRT10',
+    await test('parse printer result not ready', () => {
+        const parsed = parsePrinterResponse(englishError);
+        expect(parsed).toMatchObject({
+            isOnline: false,
+            serialNumber: 'ACI-PRT10',
+        });
     });
 });

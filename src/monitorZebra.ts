@@ -1,14 +1,16 @@
+import assert from 'node:assert';
+
 import superagent from 'superagent';
 
-import { getFastify } from './fastify';
-import { getPrintServersByMacAddress, getPrinterDocs } from './roc/printers';
-import roc from './roc/roc';
-import type { PrinterParserResult } from './util';
-import { parsePrinterResponse } from './util';
+import { getFastify } from './fastify.ts';
+import { getPrintServersByMacAddress, getPrinterDocs } from './roc/printers.ts';
+import roc from './roc/roc.ts';
 import type {
     PrintServerDocumentContent,
     PrinterDocumentContent,
-} from './util/printer';
+} from './util/printer.ts';
+import type { PrinterParserResult } from './util.ts';
+import { parsePrinterResponse } from './util.ts';
 
 const interval = 60000 * 5; // Every 5 minute
 const failInterval = 60000; // Every 1 minute if it fails
@@ -125,15 +127,16 @@ async function updatePrinterServer(
             comment: comments.join(', '),
         };
         if (!data.length) {
-            return await roc.create({
+            await roc.create({
                 $id: printer.macAddress,
                 $kind: 'printServer',
                 $content: content,
                 $owners: ['printerAdmin'],
             });
         } else {
+            assert(data[0]);
             const document = roc.getDocument(data[0]._id);
-            return await document.update(content);
+            await document.update(content);
         }
     } catch (error) {
         fastify.log.error(error);

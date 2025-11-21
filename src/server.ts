@@ -2,9 +2,9 @@ import process from 'process';
 
 import gracefulShutdown from 'fastify-graceful-shutdown';
 
-import constants from './constants';
-import { getFastify } from './fastify';
-import { startMonitoring } from './monitorZebra';
+import constants from './constants.ts';
+import { getFastify } from './fastify.ts';
+import { startMonitoring } from './monitorZebra.ts';
 
 // Run the server!
 const start = async () => {

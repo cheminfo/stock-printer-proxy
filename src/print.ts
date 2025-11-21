@@ -2,7 +2,7 @@ import { connect } from 'net';
 
 import superagent from 'superagent';
 
-import constants from './constants';
+import constants from './constants.ts';
 
 export function print(
     printer: {
