@@ -12,3 +12,4 @@ jobs:
         with:
             node-version-matrix: '[22,24]'
             lint-check-types: true
+            upload-coverage: false
