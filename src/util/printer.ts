@@ -81,7 +81,7 @@ export class Printer {
 export interface FormatDocumentContent {
     name: string;
     type: string;
-    example: any;
+    example: unknown;
     twig?: boolean;
     models: Array<{
         name: string;

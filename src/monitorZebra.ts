@@ -41,7 +41,9 @@ async function updateStatus() {
 
     for (const printer of printers) {
         const data = printer.$content;
+        // eslint-disable-next-line no-await-in-loop
         const printerCheck = await checkPrinter(data);
+        // eslint-disable-next-line no-await-in-loop
         await updatePrinterServer(data, printerCheck);
     }
 }
