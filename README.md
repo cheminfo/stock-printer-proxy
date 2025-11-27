@@ -40,3 +40,5 @@ The docs can be accessed on http://127.0.0.1:7770/documentation
 To publish a new version, create a github release with a new tag `vX.Y.Z` and the package will be automatically published to github's docker registry.
 
 Use the "Generate changelog" feature to autofill the description of the release.
+
+You can do this with: `gh release create vX.Y.Z --generate-notes`
