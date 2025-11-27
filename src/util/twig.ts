@@ -1,6 +1,6 @@
 import twig from 'twig';
 
-import { FormatDocumentContent } from './printer';
+import type { FormatDocumentContent } from './printer.ts';
 
 export function twigInterpolateFormat(
     printFormat: FormatDocumentContent,

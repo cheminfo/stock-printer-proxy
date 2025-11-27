@@ -69,9 +69,7 @@ export class Printer {
         });
 
         if (params.type) {
-            formats = formats.filter(
-                (f) => String(f.$content.type) === params.type,
-            );
+            formats = formats.filter((f) => f.$content.type === params.type);
         }
 
         return formats.map((format) => new Format(format));
@@ -81,7 +79,7 @@ export class Printer {
 export interface FormatDocumentContent {
     name: string;
     type: string;
-    example: any;
+    example: unknown;
     twig?: boolean;
     models: Array<{
         name: string;

@@ -1,23 +1,27 @@
-import { FastifyInstance } from 'fastify';
+import assert from 'node:assert';
 
-import { print } from './print';
+import type { FastifyInstance } from 'fastify';
+
+import { print } from './print.ts';
 import {
-    getPrinter,
-    getPrinterFormatPairs,
     getPrintFormat,
     getPrintServersByMacAddress,
-} from './roc/printers';
-import {
-    pstprntSchema,
-    printersSchema,
-    PstprntQuery,
-    PrintersQuery,
-    printInterpolateSchema,
-    PrintInterpolateBody,
+    getPrinter,
+    getPrinterFormatPairs,
+} from './roc/printers.ts';
+import type {
     GetPrintQuery,
+    PrintInterpolateBody,
+    PrintersQuery,
+    PstprntQuery,
+} from './schemas.ts';
+import {
     getPrintSchema,
-} from './schemas';
-import { twigInterpolateFormat } from './util/twig';
+    printInterpolateSchema,
+    printersSchema,
+    pstprntSchema,
+} from './schemas.ts';
+import { twigInterpolateFormat } from './util/twig.ts';
 
 export default function registerRoutes(fastify: FastifyInstance) {
     fastify.get<{
@@ -86,6 +90,7 @@ export default function registerRoutes(fastify: FastifyInstance) {
                 );
             }
             const firstPair = formatPairs[0];
+            assert(firstPair);
 
             const format = await getPrintFormat(firstPair.format.id());
             const printer = await getPrinter(firstPair.printer.id());
@@ -117,10 +122,11 @@ export default function registerRoutes(fastify: FastifyInstance) {
             if (!data.length) {
                 return reply.code(404).send('mac address not found');
             }
+            assert(data[0]);
             const content = data[0].$content;
             try {
                 await print(content, request.body);
-            } catch (e) {
+            } catch {
                 return reply.send({ ok: false });
             }
             await reply.send({ ok: true });

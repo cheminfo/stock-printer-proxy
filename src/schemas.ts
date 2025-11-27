@@ -1,5 +1,6 @@
-import { Static, Type } from '@sinclair/typebox';
-import { FastifySchema } from 'fastify';
+import type { Static } from '@sinclair/typebox';
+import { Type } from '@sinclair/typebox';
+import type { FastifySchema } from 'fastify';
 
 export const pstprntSchema = {
     description: 'Forward a ZPL command to the specified printer.',

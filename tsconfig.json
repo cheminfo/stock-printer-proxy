@@ -1,10 +1,9 @@
 {
-    "extends": "fastify-tsconfig",
+    "extends": "@zakodium/tsconfig",
     "compilerOptions": {
-        "strict": true,
-        "esModuleInterop": true,
         "outDir": "lib",
-        "target": "es2020",
-        "lib": ["es2020"]
+        "sourceMap": false,
+        "declaration": false,
+        "declarationMap": false
     }
 }

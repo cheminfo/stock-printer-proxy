@@ -3,10 +3,10 @@ import fastifySwagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
 
-import pkg from '../package.json';
+import pkg from '../package.json' with { type: 'json' };
 
-import constants from './constants';
-import registerRoutes from './registerRoutes';
+import constants from './constants.ts';
+import registerRoutes from './registerRoutes.ts';
 
 const serviceDescription = `
 Web service for sending print jobs to Zebra printers. The service is connected to a backend which manages printers and their associated label and print formats, and monitors which printers are ready to receive print jobs and which are not.

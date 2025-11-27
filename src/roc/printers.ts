@@ -1,15 +1,15 @@
-import {
+import type {
     FormatDocument,
     FormatDocumentContent,
     PrintDataType,
-    Printer,
-    PrinterDocument,
-    PrinterDocumentContent,
     PrintServerDocument,
     PrintServerDocumentContent,
-} from '../util/printer';
+    PrinterDocument,
+    PrinterDocumentContent,
+} from '../util/printer.ts';
+import { Printer } from '../util/printer.ts';
 
-import roc from './roc';
+import roc from './roc.ts';
 
 const MINUTE = 1000 * 60;
 

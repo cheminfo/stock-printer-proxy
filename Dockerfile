@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder
+FROM node:24-alpine AS builder
 
 WORKDIR /build
 COPY . .
@@ -6,11 +6,11 @@ COPY . .
 RUN npm ci
 RUN npm run build
 
-FROM node:16-alpine
+FROM node:24-alpine
 
 WORKDIR /stock-printer-proxy-source
 COPY package.json package-lock.json ./
-ENV NODE_ENV production
+ENV NODE_ENV=production
 RUN npm ci
 RUN mkdir lib
 COPY --from=builder /build/lib ./lib
