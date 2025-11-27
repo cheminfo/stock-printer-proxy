@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "stock-printer-proxy",
-    "version": "6.4.0",
+    "version": "0.0.0",
     "description": "A public server to proxy requests to printers on the intranet",
     "repository": "git@github.com:cheminfo/stock-printer-proxy.git",
     "author": "Daniel Kostro <kostro.d@gmail.com>",
@@ -12,7 +12,7 @@
         "@fastify/swagger": "^9.6.1",
         "@fastify/swagger-ui": "^5.2.3",
         "@sinclair/typebox": "^0.34.41",
-        "body-parser": "^2.2.0",
+        "body-parser": "^2.2.1",
         "fastify": "^5.6.2",
         "fastify-graceful-shutdown": "^5.0.0",
         "rest-on-couch-client": "^6.0.0",
@@ -25,7 +25,7 @@
         "eslint": "^9.39.1",
         "eslint-config-zakodium": "^18.0.0",
         "expect": "^30.2.0",
-        "prettier": "^3.6.2",
+        "prettier": "^3.7.1",
         "typescript": "^5.9.3"
     },
     "scripts": {
