@@ -13,7 +13,7 @@
         "@fastify/swagger-ui": "^5.2.3",
         "@sinclair/typebox": "^0.34.41",
         "body-parser": "^2.2.1",
-        "fastify": "^5.6.2",
+        "fastify": "^5.7.3",
         "fastify-graceful-shutdown": "^5.0.0",
         "rest-on-couch-client": "^6.0.0",
         "twig": "^1.17.1"
