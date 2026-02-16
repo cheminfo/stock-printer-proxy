@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "stock-printer-proxy",
-    "version": "0.0.0",
+    "version": "7.0.1",
     "description": "A public server to proxy requests to printers on the intranet",
     "repository": "git@github.com:cheminfo/stock-printer-proxy.git",
     "author": "Daniel Kostro <kostro.d@gmail.com>",
