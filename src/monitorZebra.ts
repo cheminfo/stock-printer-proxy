@@ -111,8 +111,7 @@ async function updatePrinterServer(
         }
 
         const isOnline =
-            (printerCheck &&
-                printerCheck.serialNumber === printer.macAddress &&
+            (printerCheck?.serialNumber === printer.macAddress &&
                 printerCheck.isOnline) ||
             false;
         const content: PrintServerDocumentContent = {
