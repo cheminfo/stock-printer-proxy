@@ -16,7 +16,7 @@
         "fastify": "^5.8.1",
         "fastify-graceful-shutdown": "^5.0.0",
         "rest-on-couch-client": "^8.0.0",
-        "twig": "^1.17.1"
+        "twig": "^2.0.0"
     },
     "devDependencies": {
         "@types/node": "^24.10.13",
